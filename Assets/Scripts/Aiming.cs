@@ -12,7 +12,7 @@ public class Aiming : MonoBehaviour
         
     }
 
-    void Update()
+    public void UpdateInput()
     {
 	    var move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -20,5 +20,5 @@ public class Aiming : MonoBehaviour
 		transform.localPosition = new Vector3(
 			Mathf.Clamp(newPosition.x, -0.005f, 0.245f),
 			Mathf.Clamp(newPosition.y, 0.05f, 0.245f));
-	}
+    }
 }

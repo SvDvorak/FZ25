@@ -5,16 +5,16 @@ using UnityEngine;
 public class AmmoCounter : MonoBehaviour
 {
 	public int MaxRounds;
-	public bool Cocked;
 	public Transform RoundsRoot;
 	public GameObject RoundTemplate;
 
-	private int roundWidth;
-	private int loadedRounds;
-	private readonly List<GameObject> roundInstances = new List<GameObject>();
+	public int LoadedRounds => roundInstances.Count;
 
-	public bool IsFull => loadedRounds == MaxRounds;
-	public bool HasRoundsLoaded => loadedRounds > 0;
+	private int roundWidth;
+	private readonly List<SpriteRenderer> roundInstances = new List<SpriteRenderer>();
+
+	public bool IsFull => LoadedRounds == MaxRounds;
+	public bool HasRoundsLoaded => LoadedRounds > 0;
 
 	public void Start()
 	{
@@ -24,20 +24,44 @@ public class AmmoCounter : MonoBehaviour
 
 	public void AddSingle()
 	{
+		if(IsFull)
+			return;
+
 		var roundInstance = Instantiate(RoundTemplate, RoundsRoot);
-		roundInstance.transform.localPosition = new Vector3(loadedRounds * (roundWidth + 1), 0) * Game.PixelSize;
-		roundInstances.Add(roundInstance);
-		loadedRounds = Mathf.Clamp(loadedRounds + 1, 0, MaxRounds);
+		roundInstance.transform.localPosition = new Vector3(LoadedRounds * (roundWidth + 1), 0) * Game.PixelSize;
+		roundInstances.Add(roundInstance.GetComponent<SpriteRenderer>());
 	}
 
 	public void AddFull()
 	{
-		for(int i = 0; i < MaxRounds - loadedRounds; i++)
+		for(int i = 0; i < MaxRounds - LoadedRounds; i++)
 			AddSingle();
 	}
 
 	public void RemoveSingle()
 	{
-		roundInstances.RemoveAt(roundInstances.Count - 1);
+		if(roundInstances.Count > 0)
+		{
+			var instance = roundInstances[roundInstances.Count - 1];
+			Destroy(instance);
+			roundInstances.RemoveAt(roundInstances.Count - 1);
+		}
+	}
+
+	public bool IsEmpty()
+	{
+		return LoadedRounds == 0;
+	}
+
+	public void SetAmmoColor(bool colorLast)
+	{
+		for(var i = 0; i < LoadedRounds; i++)
+		{
+			var instance = roundInstances[i];
+			if(colorLast && i == LoadedRounds - 1)
+				instance.color = new Color(1, 0.5f, 0.5f);
+			else
+				instance.color = Color.white;
+		}
 	}
 }

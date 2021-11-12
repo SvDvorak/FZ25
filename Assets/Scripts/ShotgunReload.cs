@@ -1,24 +1,16 @@
 ﻿using System;
 using UnityEngine;
 
-public class ReloadState
-{
-	public string AwaitedInput;
-	public ReloadState NextState;
-	public Action<Animator> UpdateAnimation;
-}
-
 public class ShotgunReload : MonoBehaviour
 {
+	public InteractionArrow InteractionArrow;
 	public Animator Animator;
+	public bool isShotCocked;
 
-	public void UpdateInput(AmmoCounter ammoCounter, InteractionArrow interactionArrow)
+	public void UpdateInput(AmmoCounter ammoCounter, bool isWeaponVisible)
 	{
-		ammoCounter.AddFull();
-		ammoCounter.Cocked = true;
-
 	    var clipName = GetCurrentClipName();
-	    if(clipName == "Idle" && !ammoCounter.IsFull && GetInput() == "Up")
+	    if(isWeaponVisible && clipName == "Idle" && !ammoCounter.IsFull && GetInput() == "Up")
 	    {
 			Animator.SetTrigger("Load");
 			ammoCounter.AddSingle();
@@ -26,25 +18,25 @@ public class ShotgunReload : MonoBehaviour
 		else if(clipName == "Idle" && GetInput() == "Right")
 	    {
 		    Animator.SetBool("Cocked", true);
-			interactionArrow.SetDirection("Left");
+			InteractionArrow.SetDirection("Left");
 	    }
 		else if(clipName == "Cock" && GetInput() == "Left")
 	    {
 		    Animator.SetBool("Cocked", false);
 		    if(ammoCounter.HasRoundsLoaded)
-			    ammoCounter.Cocked = true;
+			    isShotCocked = true;
 	    }
 
-	    if(clipName == "Idle" && !ammoCounter.IsFull)
-		    interactionArrow.SetDirection("Up");
-	    else if(clipName == "Idle" && !ammoCounter.Cocked)
-		    interactionArrow.SetDirection("Right");
+	    if(clipName == "Idle" && isWeaponVisible && !ammoCounter.IsFull)
+		    InteractionArrow.SetDirection("Up");
+	    else if(clipName == "Idle" && !isShotCocked)
+		    InteractionArrow.SetDirection("Right");
 	    else if(clipName == "Uncock")
-		    interactionArrow.SetDirection("Right");
+		    InteractionArrow.SetDirection("Right");
 	    else if(clipName == "Cock")
-		    interactionArrow.SetDirection("Left");
+		    InteractionArrow.SetDirection("Left");
 		else
-		    interactionArrow.SetDirection("None");
+		    InteractionArrow.SetDirection("None");
     }
 
     private string GetInput()
