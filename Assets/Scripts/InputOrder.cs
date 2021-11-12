@@ -86,6 +86,7 @@ public class InputOrder : MonoBehaviour
     private void SetWeaponVisible(bool visible)
     {
 		WeaponParent.SetBool("Visible", visible);
+		Aiming.SetVisible(!visible);
     }
 
 	private bool IsWeaponVisible => WeaponParent.GetBool("Visible");
