@@ -41,6 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Zombie
+    uniqueID: 2083342571
+    locked: 0
+  - name: Aim
+    uniqueID: 3035222937
+    locked: 0
+  - name: Weapon
+    uniqueID: 494029975
+    locked: 0
   - name: BottomBar
     uniqueID: 928501357
+    locked: 0
+  - name: Foreground
+    uniqueID: 1047975063
     locked: 0
