@@ -16,7 +16,7 @@ public class AmmoCounter : MonoBehaviour
 	public bool IsFull => LoadedRounds == MaxRounds;
 	public bool HasRoundsLoaded => LoadedRounds > 0;
 
-	public void Start()
+	public void OnEnable()
 	{
 		var spriteRenderer = RoundTemplate.GetComponentInChildren<SpriteRenderer>();
 		roundWidth = (int)spriteRenderer.sprite.rect.width;
@@ -34,7 +34,8 @@ public class AmmoCounter : MonoBehaviour
 
 	public void AddFull()
 	{
-		for(int i = 0; i < MaxRounds - LoadedRounds; i++)
+		var remaining = MaxRounds - LoadedRounds;
+		for(int i = 0; i < remaining; i++)
 			AddSingle();
 	}
 

@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
 
+public abstract class Firing : MonoBehaviour
+{
+	public abstract void Fire();
+}
+
 public class Zombie : MonoBehaviour
 {
-	public Sprite[] Sprites;
+	public GameObject[] sprites;
 
-	public static int MaxDistance = 5;
 	public int Distance { get; set; } = 5;
 	public float StepElapsed => Time.time - stepTime;
 
 	private float stepTime;
-	private SpriteRenderer spriteRenderer;
+	private GameObject activeSprite;
 	private Vector3 offset;
 
 	void OnEnable()
 	{
-		spriteRenderer = GetComponent<SpriteRenderer>();
-		spriteRenderer.sprite = Sprites[Sprites.Length - 1];
-		spriteRenderer.flipX = Extensions.RandomBool();
+		ActiveSpriteAtCurrentDistance();
 
 		stepTime = Time.time;
 
 		offset = GetRandomOffset();
 		transform.localPosition += offset;
+		transform.localScale = new Vector3(Extensions.RandomBool() ? 1 : -1, 1);
 	}
 
 	public void StepCloser(Transform parent, int newDistance)
@@ -29,12 +32,17 @@ public class Zombie : MonoBehaviour
 		Distance = newDistance;
 		transform.SetParent(parent, false);
 		transform.localPosition = offset;
+		ActiveSpriteAtCurrentDistance();
 		stepTime = Time.time;
-
-		spriteRenderer.sprite = Sprites[Distance - 1];
-		spriteRenderer.sortingOrder = MaxDistance - Distance;
 	}
 
+	private void ActiveSpriteAtCurrentDistance()
+	{
+		if(activeSprite != null)
+			activeSprite.SetActive(false);
+		activeSprite = sprites[Distance - 1];
+		activeSprite.SetActive(true);
+	}
 
-	private Vector3 GetRandomOffset() => new Vector3(Extensions.RoundToGrid(Random.Range(0, 0.24f)), 0);
+	private Vector3 GetRandomOffset() => new Vector3(Extensions.RoundToLocalGrid(Random.Range(0, 0.24f)), 0);
 }
