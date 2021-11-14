@@ -6,7 +6,7 @@ public class Shotgun : Weapon
 	public ShotgunReload ShotgunReload;
 	public Firing ShotgunFiring;
 
-	public override bool CanFire() => ShotgunReload.isShotCocked;
+	public override bool CanFire() => ShotgunReload.IsShotCocked;
 	public override bool IsFull() => AmmoCounter.IsFull;
 
 	public override bool IsEmpty() => AmmoCounter.IsEmpty();
@@ -14,22 +14,22 @@ public class Shotgun : Weapon
 	public void Start()
 	{
 		AmmoCounter.AddFull();
-		ShotgunReload.isShotCocked = true;
+		ShotgunReload.IsShotCocked = true;
 	}
 
 	public override void Fire()
 	{
-		if(ShotgunReload.isShotCocked)
+		if(ShotgunReload.IsShotCocked)
 		{
 			AmmoCounter.RemoveSingle();
 			ShotgunFiring.Fire();
-			ShotgunReload.isShotCocked = false;
+			ShotgunReload.IsShotCocked = false;
 		}
 	}
 
 	public override void UpdateInput(bool isWeaponVisible)
 	{
 		ShotgunReload.UpdateInput(AmmoCounter, isWeaponVisible);
-		AmmoCounter.SetAmmoColor(ShotgunReload.isShotCocked);
+		AmmoCounter.SetAmmoColor(ShotgunReload.IsShotCocked);
 	}
 }

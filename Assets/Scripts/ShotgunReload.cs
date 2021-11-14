@@ -5,7 +5,7 @@ public class ShotgunReload : MonoBehaviour
 {
 	public InteractionArrow InteractionArrow;
 	public Animator Animator;
-	public bool isShotCocked;
+	public bool IsShotCocked;
 
 	public void UpdateInput(AmmoCounter ammoCounter, bool isWeaponVisible)
 	{
@@ -24,12 +24,12 @@ public class ShotgunReload : MonoBehaviour
 	    {
 		    Animator.SetBool("Cocked", false);
 		    if(ammoCounter.HasRoundsLoaded)
-			    isShotCocked = true;
+			    IsShotCocked = true;
 	    }
 
 	    if(clipName == "Idle" && isWeaponVisible && !ammoCounter.IsFull)
 		    InteractionArrow.SetDirection("Up");
-	    else if(clipName == "Idle" && !isShotCocked)
+	    else if(clipName == "Idle" && !IsShotCocked)
 		    InteractionArrow.SetDirection("Right");
 	    else if(clipName == "Uncock")
 		    InteractionArrow.SetDirection("Right");
