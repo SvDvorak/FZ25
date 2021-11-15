@@ -2,14 +2,16 @@
 
 public class Zombie : MonoBehaviour
 {
+	public int Health;
 	public GameObject[] sprites;
-
 	public int Distance { get; set; } = 5;
+	public bool IsDead { get; set; }
 	public float StepElapsed => Time.time - stepTime;
 
 	private float stepTime;
 	private GameObject activeSprite;
 	private Vector3 offset;
+	private int fullHealth;
 
 	void OnEnable()
 	{
@@ -23,6 +25,11 @@ public class Zombie : MonoBehaviour
 		offset = GetRandomOffset();
 		transform.localPosition += offset;
 		transform.localScale = new Vector3(Extensions.RandomBool() ? 1 : -1, 1);
+	}
+
+	void Start()
+	{
+		fullHealth = Health;
 	}
 
 	public void StepCloser(Transform parent, int newDistance)
@@ -48,5 +55,11 @@ public class Zombie : MonoBehaviour
 	{
 		health.TakeDamage();
 		stepTime = Time.time;
+	}
+
+	public void TakeDamage()
+	{
+		Health = Mathf.Clamp(Health - 1, 0, fullHealth);
+		IsDead = Health == 0;
 	}
 }

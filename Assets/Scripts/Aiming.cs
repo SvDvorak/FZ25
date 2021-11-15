@@ -7,12 +7,6 @@ public class Aiming : MonoBehaviour
 	public Transform PistolReticle;
 	public Transform ShotgunReticle;
 	public Transform RifleReticle;
-	//public Vector2 Global;
-	//public Vector2 GlobalRound;
-
-    void Start()
-    {
-    }
 
     public void UpdateInput()
     {

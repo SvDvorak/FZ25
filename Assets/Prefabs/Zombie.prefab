@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7595846481506212070}
   - component: {fileID: 1901915998503994943}
   - component: {fileID: 813501602351073774}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dist1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 1494089638879987664}
   - component: {fileID: 2482348660367499700}
   - component: {fileID: 5074617007918768773}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dist4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 180379557740772403}
   - component: {fileID: 3897121863544147548}
   - component: {fileID: 9154916398870277815}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dist3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 1984463175728577625}
   - component: {fileID: 854246963459853572}
   - component: {fileID: 440582875460786282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dist5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df36b2788ba95a4c90e98cf67d7816e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 3
   sprites:
   - {fileID: 261290607981139271}
   - {fileID: 7150822872123605805}
@@ -565,7 +566,7 @@ GameObject:
   - component: {fileID: 3536333311540369124}
   - component: {fileID: 2025492402059650526}
   - component: {fileID: 5586413910380396767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dist2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

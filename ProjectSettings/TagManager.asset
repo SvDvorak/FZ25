@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Zombie
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: BottomBar
     uniqueID: 928501357
+    locked: 0
+  - name: Menu
+    uniqueID: 455843283
     locked: 0
   - name: Foreground
     uniqueID: 1047975063

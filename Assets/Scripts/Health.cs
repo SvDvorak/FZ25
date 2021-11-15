@@ -9,17 +9,30 @@ public class Health : MonoBehaviour
 	void OnEnable()
 	{
 		animator = GetComponent<Animator>();
-		SetHealth();
+		UpdateHealth();
+
+		Events.OnGameStarted += AddFullHealth;
 	}
+
+	void OnDisable() => Events.OnGameStarted -= AddFullHealth;
 
 	public void TakeDamage()
 	{
 		health = Mathf.Clamp(health - 1, 0, 4);
-		SetHealth();
+		UpdateHealth();
 	}
 
-	private void SetHealth()
+	private void UpdateHealth()
 	{
 		animator.SetInteger("Health", health);
+
+		if(health == 0)
+			Events.PlayerDied();
+	}
+
+	public void AddFullHealth()
+	{
+		health = 4;
+		UpdateHealth();
 	}
 }

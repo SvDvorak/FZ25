@@ -95,4 +95,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 3781792581813377641}
-  LifeTime: 10
+  LifeTime: 1

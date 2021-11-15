@@ -1,27 +1,25 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
-{
-	public abstract bool CanFire();
-	public abstract void Fire();
-	public abstract void UpdateInput(bool isWeaponVisible);
-	public abstract bool IsFull();
-	public abstract bool IsEmpty();
-}
-
 public class InputOrder : MonoBehaviour
 {
 	public Aiming Aiming;
 	public Animator WeaponParent;
-	public Weapon ActiveWeapon;
 	public InteractionArrow InteractionArrow;
-	public Health Health;
+	public GameState GameState;
 	private Coroutine waitAndHideRoutine;
 	private bool waitForButtonRelease;
-	private bool weaponHadFocusLastFrame;
+	private bool weaponHadFocusLastFrame = true;
 
 	void Update()
+	{
+		if(GameState.Playing)
+			UpdateGame();
+		else
+			UpdateMenu();
+	}
+
+	private void UpdateGame()
 	{
 		if(waitForButtonRelease && Input.anyKey)
 			return;
@@ -29,42 +27,39 @@ public class InputOrder : MonoBehaviour
 		waitForButtonRelease = false;
 		var weaponHasFocus = IsWeaponVisible;
 
-		if(PressedWeaponSelect())
-			Health.TakeDamage();
-
 		if(IsWeaponVisible)
 		{
-			var weaponFullyLoaded = ActiveWeapon.IsFull() && ActiveWeapon.CanFire();
-			if (weaponFullyLoaded && waitAndHideRoutine == null)
+			var weaponFullyLoaded = GameState.ActiveWeapon.IsFull() && GameState.ActiveWeapon.CanFire();
+			if(weaponFullyLoaded && waitAndHideRoutine == null)
 				waitAndHideRoutine = StartCoroutine(WaitAndHideWeapon());
- 			else if (PressedWeaponSelect())
-            {
-	            SetWeaponVisible(false);
-	            waitForButtonRelease = true;
-            }
+			else if(PressedWeaponSelect())
+			{
+				SetWeaponVisible(false);
+				waitForButtonRelease = true;
+			}
 		}
 
-		if(ActiveWeapon.IsEmpty())
+		if(GameState.ActiveWeapon.IsEmpty())
 			SetWeaponVisible(true);
 
-        if(ActiveWeapon.CanFire())
-        {
-	        if(Input.GetKeyDown(KeyCode.Space) && !IsWeaponVisible)
-		        ActiveWeapon.Fire();
-        }
+		if(GameState.ActiveWeapon.CanFire())
+		{
+			if(Input.GetKeyDown(KeyCode.Space) && !IsWeaponVisible)
+				GameState.ActiveWeapon.Fire();
+		}
 		else
-        {
-	        weaponHasFocus = true;
-        }
+		{
+			weaponHasFocus = true;
+		}
 
-        if(weaponHadFocusLastFrame != weaponHasFocus)
-        {
-	        waitForButtonRelease = true;
+		if(weaponHadFocusLastFrame != weaponHasFocus)
+		{
+			waitForButtonRelease = true;
 			InteractionArrow.SetDirection("None");
-        }
+		}
 		else if(weaponHasFocus)
 		{
-			ActiveWeapon.UpdateInput(IsWeaponVisible);
+			GameState.ActiveWeapon.UpdateInput(IsWeaponVisible);
 		}
 		else
 		{
@@ -74,7 +69,18 @@ public class InputOrder : MonoBehaviour
 		weaponHadFocusLastFrame = weaponHasFocus;
 	}
 
-    private IEnumerator WaitAndHideWeapon()
+	private void UpdateMenu()
+	{
+		HideGameFunctions();
+
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			GameState.Restart();
+			Aiming.SetVisible(true);
+		}
+	}
+
+	private IEnumerator WaitAndHideWeapon()
     {
 	    yield return new WaitForSeconds(0.3f);
 		SetWeaponVisible(false);
@@ -82,16 +88,23 @@ public class InputOrder : MonoBehaviour
 		waitAndHideRoutine = null;
     }
 
-    private static bool PressedWeaponSelect()
+	private static bool PressedWeaponSelect()
     {
 	    return Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift);
     }
 
-    private void SetWeaponVisible(bool visible)
+	private void SetWeaponVisible(bool visible)
     {
 		WeaponParent.SetBool("Visible", visible);
 		Aiming.SetVisible(!visible);
     }
+
+	private void HideGameFunctions()
+	{
+		WeaponParent.SetBool("Visible", false);
+		Aiming.SetVisible(false);
+		InteractionArrow.SetDirection("None");
+	}
 
 	private bool IsWeaponVisible => WeaponParent.GetBool("Visible");
 }
