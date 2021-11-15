@@ -6,6 +6,7 @@ public class ZombieSpawner : MonoBehaviour
 	public float StepTime;
 	public GameObject ZombieTemplate;
 	public Transform[] DistanceLines;
+	public Health Health;
 	private List<Zombie> zombies = new List<Zombie>();
 
     void Update()
@@ -15,10 +16,13 @@ public class ZombieSpawner : MonoBehaviour
 
 	    foreach(var zombie in zombies)
 	    {
-		    if(zombie.Distance != 1 && zombie.StepElapsed > StepTime)
+		    if(zombie.StepElapsed > StepTime)
 		    {
 			    var newDistance = zombie.Distance - 1;
-			    zombie.StepCloser(DistanceLines[newDistance - 1], newDistance);
+				if (newDistance == 0)
+					zombie.Attack(Health);
+				else
+					zombie.StepCloser(DistanceLines[newDistance - 1], newDistance);
 		    }
 	    }
     }

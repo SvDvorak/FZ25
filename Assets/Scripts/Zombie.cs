@@ -18,6 +18,9 @@ public class Zombie : MonoBehaviour
 
 	void OnEnable()
 	{
+		foreach(var sprite in sprites)
+			sprite.SetActive(false);
+
 		ActiveSpriteAtCurrentDistance();
 
 		stepTime = Time.time;
@@ -45,4 +48,10 @@ public class Zombie : MonoBehaviour
 	}
 
 	private Vector3 GetRandomOffset() => new Vector3(Extensions.RoundToLocalGrid(Random.Range(0, 0.24f)), 0);
+
+	public void Attack(Health health)
+	{
+		health.TakeDamage();
+		stepTime = Time.time;
+	}
 }
