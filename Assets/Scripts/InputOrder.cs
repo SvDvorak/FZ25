@@ -16,6 +16,7 @@ public class InputOrder : MonoBehaviour
 	public Animator WeaponParent;
 	public Weapon ActiveWeapon;
 	public InteractionArrow InteractionArrow;
+	public Health Health;
 	private Coroutine waitAndHideRoutine;
 	private bool waitForButtonRelease;
 	private bool weaponHadFocusLastFrame;
@@ -27,6 +28,9 @@ public class InputOrder : MonoBehaviour
 
 		waitForButtonRelease = false;
 		var weaponHasFocus = IsWeaponVisible;
+
+		if(PressedWeaponSelect())
+			Health.TakeDamage();
 
 		if(IsWeaponVisible)
 		{
