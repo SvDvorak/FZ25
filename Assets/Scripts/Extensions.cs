@@ -22,4 +22,9 @@ public static class Extensions
 		Debug.DrawLine(pos, pos + new Vector2(size.x, 0), color, duration);
 		Debug.DrawLine(pos, pos + new Vector2(0, size.y), color, duration);
 	}
+
+	public static Vector2 ToV2(this Vector3 v)
+	{
+		return new Vector2(v.x, v.y);
+	}
 }
