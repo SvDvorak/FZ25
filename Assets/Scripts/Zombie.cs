@@ -58,6 +58,7 @@ public class Zombie : MonoBehaviour
 		health.TakeDamage();
 		stepTime = Time.time;
 		AttackAnimator.SetTrigger("Chomp");
+		ZombieSoundManager.PlayAttack();
 	}
 
 	void LateUpdate() => AttackAnimator.ResetTrigger("Chomp");
@@ -66,5 +67,6 @@ public class Zombie : MonoBehaviour
 	{
 		Health = Mathf.Clamp(Health - 1, 0, fullHealth);
 		IsDead = Health == 0;
+		ZombieSoundManager.PlayHit(this);
 	}
 }

@@ -33,6 +33,9 @@ public class InputOrder : MonoBehaviour
 				return;
 		}
 
+		if(Input.GetKeyDown(KeyCode.Escape))
+			Application.Quit();
+
 		waitForTimeOrButtonRelease = false;
 		var weaponHasFocus = IsWeaponVisible;
 

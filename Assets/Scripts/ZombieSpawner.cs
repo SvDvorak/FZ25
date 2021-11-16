@@ -13,7 +13,7 @@ public class ZombieSpawner : MonoBehaviour
 	public Transform[] DistanceLines;
 	public Health Health;
 
-	private List<Zombie> zombies = new List<Zombie>();
+	public readonly List<Zombie> Zombies = new List<Zombie>();
 	private float lastSpawnTime;
 
 	void OnEnable() => Events.OnGameStarted += Reset;
@@ -27,14 +27,14 @@ public class ZombieSpawner : MonoBehaviour
 	    if(!GameState.Playing)
 		    return;
 
-	    for(var i = 0; i < zombies.Count;)
+	    for(var i = 0; i < Zombies.Count;)
 	    {
-		    var zombie = zombies[i];
+		    var zombie = Zombies[i];
 
 		    if(zombie.IsDead)
 		    {
 			    ScoreKeeper.Score += 1;
-			    zombies.RemoveAt(i);
+			    Zombies.RemoveAt(i);
 				Destroy(zombie.gameObject);
 			    continue;
 		    }
@@ -64,14 +64,14 @@ public class ZombieSpawner : MonoBehaviour
     private void Spawn()
     {
 	    var zombie = Instantiate(ZombieTemplate, DistanceLines[DistanceLines.Length - 1]);
-		zombies.Add(zombie.GetComponent<Zombie>());
+		Zombies.Add(zombie.GetComponent<Zombie>());
     }
 
     public void Reset()
     {
-	    foreach(var zombie in zombies)
+	    foreach(var zombie in Zombies)
 		    Destroy(zombie.gameObject);
-		zombies.Clear();
+		Zombies.Clear();
 		lastSpawnTime = GameState.ElapsedGameTime;
     }
 }

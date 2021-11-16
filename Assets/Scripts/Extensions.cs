@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class Extensions
 {
@@ -35,4 +36,13 @@ public static class Extensions
 		    return "Idle";
 	    return clipInfo[0].clip.name;
     }
+
+    public static T GetRandomElement<T>(this List<T> list)
+    {
+	    if(list.Count == 0)
+		    return default;
+	    return list[Random.Range(0, list.Count)];
+    }
+
+    public static float RandomValueSigned => Random.value * 2 - 1;
 }

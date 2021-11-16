@@ -1,16 +1,28 @@
 Sounds missing:
   Pistol
-  s Fire
-  - Dry fire
-  - Unload
-  - Load
-  s Cock
+  D Fire
+  D Dry fire
+  D Unload
+  D Load
+  D Cock
+
+  Zombie
+  D Attack
+  D Moans
 
 
 Credits:
 Pistol Dry Fire https://freesound.org/people/Sophia_C/sounds/467183/
 Pistol Unload https://freesound.org/people/fastson/sounds/399122/
 Shotgun Dry Fire https://freesound.org/people/knova/sounds/170272/
+Zombie
+  https://freesound.org/people/Slave2theLight/sounds/157027/
+  https://freesound.org/people/silentbob530/sounds/214462/aud
+  https://freesound.org/people/revolverrossalot/sounds/474055/
+Ambiance (not used)
+  https://freesound.org/people/InspectorJ/sounds/352514/
+Music
+  https://jimhallmusic.bandcamp.com/album/mishmash-ep
 
 https://freesound.org/people/davdud101/sounds/119168/
 https://freesound.org/people/fastson/sounds/399122/
