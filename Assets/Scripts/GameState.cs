@@ -2,19 +2,23 @@
 
 public class GameState : MonoBehaviour
 {
-	public static bool Playing = true;
+	public static bool Playing;
 	public static float StartTime;
 	public static float ElapsedGameTime => Time.time - StartTime;
 
 	public Weapon ActiveWeapon;
+
+	public Weapon Pistol;
+	public Weapon Shotgun;
 
 	void OnEnable() => Events.OnPlayerDied += StopPlaying;
 	void OnDisable() => Events.OnPlayerDied -= StopPlaying;
 
 	void Start()
 	{
-		StartTime = Time.time;
-		Events.GameStarted();
+		Pistol.gameObject.SetActive(false);
+		Shotgun.gameObject.SetActive(false);
+		Restart();
 	}
 
 	private void StopPlaying()
@@ -26,6 +30,23 @@ public class GameState : MonoBehaviour
 	{
 		StartTime = Time.time;
 		Playing = true;
+		SetActiveWeapon(Pistol);
 		Events.GameStarted();
+	}
+
+	public void SwitchWeapon()
+	{
+		SetActiveWeapon(ActiveWeapon == Pistol ? Shotgun : Pistol);
+	}
+
+	private void SetActiveWeapon(Weapon newWeapon)
+	{
+		if(newWeapon == null || newWeapon == ActiveWeapon)
+			return;
+
+		if(ActiveWeapon != null)
+			ActiveWeapon.gameObject.SetActive(false);
+		ActiveWeapon = newWeapon;
+		ActiveWeapon.gameObject.SetActive(true);
 	}
 }

@@ -5,6 +5,7 @@ public class Shotgun : Weapon
 	public AmmoCounter AmmoCounter;
 	public ShotgunReload ShotgunReload;
 	public Firing ShotgunFiring;
+	public Transform Reticle;
 
 	public override bool CanFire() => ShotgunReload.IsShotCocked;
 	public override bool IsFull() => AmmoCounter.IsFull;
@@ -31,5 +32,19 @@ public class Shotgun : Weapon
 	{
 		ShotgunReload.UpdateInput(isWeaponVisible);
 		AmmoCounter.SetAmmoColor(ShotgunReload.IsShotCocked);
+	}
+
+	protected override void OnEnable()
+	{
+		AmmoCounter.gameObject.SetActive(true);
+		Reticle.gameObject.SetActive(true);
+		base.OnEnable();
+	}
+
+	protected override void OnDisable()
+	{
+		AmmoCounter.gameObject.SetActive(false);
+		Reticle.gameObject.SetActive(false);
+		base.OnDisable();
 	}
 }

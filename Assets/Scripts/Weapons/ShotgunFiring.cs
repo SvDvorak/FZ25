@@ -6,9 +6,10 @@ public class ShotgunFiring : Firing
 	public PolygonCollider2D HitArea;
 	private Bounds hitAreaBounds;
 
-	void OnEnable()
+	void Start()
 	{
 		hitAreaBounds = HitArea.bounds;
+		hitAreaBounds.center = Vector3.zero;
 	}
 
 	public override void Fire()

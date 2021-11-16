@@ -4,9 +4,6 @@ public class Aiming : MonoBehaviour
 {
 	public float MoveSpeed;
 	public Animator Animator;
-	public Transform PistolReticle;
-	public Transform ShotgunReticle;
-	public Transform RifleReticle;
 
     public void UpdateInput()
     {

@@ -8,7 +8,8 @@ public class InputOrder : MonoBehaviour
 	public InteractionArrow InteractionArrow;
 	public GameState GameState;
 	private Coroutine waitAndHideRoutine;
-	private bool waitForButtonRelease;
+	private bool waitForTimeOrButtonRelease;
+	private float waitTimeEnd;
 	private bool weaponHadFocusLastFrame = true;
 
 	void Update()
@@ -21,22 +22,34 @@ public class InputOrder : MonoBehaviour
 
 	private void UpdateGame()
 	{
-		if(waitForButtonRelease && Input.anyKey)
-			return;
+		if(waitForTimeOrButtonRelease)
+		{
+			if(waitTimeEnd < Time.time)
+				waitForTimeOrButtonRelease = false;
+			else if(Input.anyKey)
+				return;
+		}
 
-		waitForButtonRelease = false;
+		waitForTimeOrButtonRelease = false;
 		var weaponHasFocus = IsWeaponVisible;
+
+		if(PressedWeaponSelect())
+		{
+			GameState.SwitchWeapon();
+			if(GameState.ActiveWeapon.CanFire() && IsWeaponVisible)
+				SetWeaponVisible(false);
+		}
 
 		if(IsWeaponVisible)
 		{
 			var weaponFullyLoaded = GameState.ActiveWeapon.IsFull() && GameState.ActiveWeapon.CanFire();
 			if(weaponFullyLoaded && waitAndHideRoutine == null)
 				waitAndHideRoutine = StartCoroutine(WaitAndHideWeapon());
-			else if(PressedWeaponSelect())
-			{
-				SetWeaponVisible(false);
-				waitForButtonRelease = true;
-			}
+			//else if(PressedWeaponSelect())
+			//{
+			//	SetWeaponVisible(false);
+			//	WaitForButtonRelease();
+			//}
 		}
 
 		if(GameState.ActiveWeapon.IsEmpty())
@@ -54,7 +67,7 @@ public class InputOrder : MonoBehaviour
 
 		if(weaponHadFocusLastFrame != weaponHasFocus)
 		{
-			waitForButtonRelease = true;
+			WaitForButtonRelease();
 			InteractionArrow.SetDirection("None");
 		}
 		else if(weaponHasFocus)
@@ -72,6 +85,7 @@ public class InputOrder : MonoBehaviour
 	private void UpdateMenu()
 	{
 		HideGameFunctions();
+		WaitForButtonRelease(1);
 
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
@@ -84,9 +98,15 @@ public class InputOrder : MonoBehaviour
     {
 	    yield return new WaitForSeconds(0.3f);
 		SetWeaponVisible(false);
-		waitForButtonRelease = true;
+		WaitForButtonRelease();
 		waitAndHideRoutine = null;
     }
+
+	private void WaitForButtonRelease(float wait = 0.2f)
+	{
+		waitForTimeOrButtonRelease = true;
+		waitTimeEnd = Time.time + wait;
+	}
 
 	private static bool PressedWeaponSelect()
     {
