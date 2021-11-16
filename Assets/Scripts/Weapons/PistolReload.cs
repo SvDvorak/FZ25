@@ -13,12 +13,19 @@ public class PistolReload : Reload
 		base.UpdateInput(isWeaponVisible);
 
 		var clipName = Animator.GetCurrentClipName();
-		if (isWeaponVisible && clipName == "Idle" && CachedInput == "Down")
+		if (clipName == "Idle")
 		{
-			Animator.SetTrigger("Unload");
-			InteractionArrow.SetDirection("Up");
-			IsCocked = false;
-			ResetCachedInput();
+			if(CachedInput == "Down")
+			{
+				Animator.SetTrigger("Unload");
+				InteractionArrow.SetDirection("Up");
+				IsCocked = false;
+				ResetCachedInput();
+			}
+			else
+			{
+				InteractionArrow.SetDirection("Down");
+			}
 		}
 		else if (clipName == "Unload" && CachedInput == "Up")
 		{

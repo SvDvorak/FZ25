@@ -115,7 +115,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 6
+        y: 0
         width: 5
         height: 5
       alignment: 6
@@ -136,7 +136,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 6
-        y: 6
+        y: 0
         width: 5
         height: 5
       alignment: 6
@@ -156,7 +156,7 @@ TextureImporter:
       name: Down
       rect:
         serializedVersion: 2
-        x: 0
+        x: 12
         y: 0
         width: 5
         height: 5
@@ -177,7 +177,7 @@ TextureImporter:
       name: Right
       rect:
         serializedVersion: 2
-        x: 6
+        x: 18
         y: 0
         width: 5
         height: 5

@@ -7,7 +7,7 @@ public class DebugTools : MonoBehaviour
     void Update()
     {
 	    var speeding = Input.GetKey(KeyCode.LeftControl);
-	    Time.timeScale = speeding ? 1/5f : 1;
+	    Time.timeScale = speeding ? 5f : 1;
         TimeChangeActiveSprite.SetActive(Application.isEditor && speeding);
     }
 }
