@@ -30,6 +30,8 @@ public class GameState : MonoBehaviour
 	{
 		StartTime = Time.time;
 		Playing = true;
+		Pistol.Reset();
+		Shotgun.Reset();
 		SetActiveWeapon(Pistol);
 		Events.GameStarted();
 	}

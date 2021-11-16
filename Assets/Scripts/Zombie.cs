@@ -51,7 +51,7 @@ public class Zombie : MonoBehaviour
 		activeSprite.SetActive(true);
 	}
 
-	private Vector3 GetRandomOffset() => new Vector3(Extensions.RoundToLocalGrid(Random.Range(0, 0.24f)), 0);
+	private Vector3 GetRandomOffset() => new Vector3(Extensions.RoundToLocalGrid(Random.Range(0.01f, 0.23f)), 0);
 
 	public void Attack(Health health)
 	{

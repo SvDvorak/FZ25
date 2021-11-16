@@ -12,6 +12,9 @@ public class InputOrder : MonoBehaviour
 	private float waitTimeEnd;
 	private bool weaponHadFocusLastFrame = true;
 
+	void OnEnable() => Events.OnPlayerDied += PauseInput;
+	void OnDisable() => Events.OnPlayerDied -= PauseInput;
+
 	void Update()
 	{
 		if(GameState.Playing)
@@ -82,12 +85,16 @@ public class InputOrder : MonoBehaviour
 		weaponHadFocusLastFrame = weaponHasFocus;
 	}
 
+	private void PauseInput()
+	{
+		waitTimeEnd = Time.time + 2;
+	}
+
 	private void UpdateMenu()
 	{
 		HideGameFunctions();
-		WaitForButtonRelease(1);
 
-		if(Input.GetKeyDown(KeyCode.Space))
+		if(waitTimeEnd < Time.time && Input.GetKeyDown(KeyCode.Space))
 		{
 			GameState.Restart();
 			Aiming.SetVisible(true);

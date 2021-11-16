@@ -42,7 +42,7 @@ public class AmmoCounter : MonoBehaviour
 		if(roundInstances.Count > 0)
 		{
 			var instance = roundInstances[roundInstances.Count - 1];
-			Destroy(instance);
+			Destroy(instance.gameObject);
 			roundInstances.RemoveAt(roundInstances.Count - 1);
 		}
 	}
