@@ -27,4 +27,12 @@ public static class Extensions
 	{
 		return new Vector2(v.x, v.y);
 	}
+
+    public static string GetCurrentClipName(this Animator animator)
+    {
+	    var clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+	    if(clipInfo.Length == 0)
+		    return "Idle";
+	    return clipInfo[0].clip.name;
+    }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 public class AmmoCounter : MonoBehaviour
 {
 	public int MaxRounds;
-	public Transform RoundsRoot;
 	public GameObject RoundTemplate;
 
 	public int LoadedRounds => roundInstances.Count;
@@ -26,7 +25,7 @@ public class AmmoCounter : MonoBehaviour
 		if(IsFull)
 			return;
 
-		var roundInstance = Instantiate(RoundTemplate, RoundsRoot);
+		var roundInstance = Instantiate(RoundTemplate, transform);
 		roundInstance.transform.localPosition = new Vector3(LoadedRounds * (roundWidth + 1), 0) * Game.PixelSize;
 		roundInstances.Add(roundInstance.GetComponent<SpriteRenderer>());
 	}
@@ -48,10 +47,13 @@ public class AmmoCounter : MonoBehaviour
 		}
 	}
 
-	public bool IsEmpty()
+	public void RemoveAll()
 	{
-		return LoadedRounds == 0;
+		while(roundInstances.Count > 0)
+			RemoveSingle();
 	}
+
+	public bool IsEmpty => LoadedRounds == 0;
 
 	public void SetAmmoColor(bool colorLast)
 	{

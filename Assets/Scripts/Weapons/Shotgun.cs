@@ -8,10 +8,7 @@ public class Shotgun : Weapon
 
 	public override bool CanFire() => ShotgunReload.IsShotCocked;
 	public override bool IsFull() => AmmoCounter.IsFull;
-	public override bool IsEmpty() => AmmoCounter.IsEmpty();
-
-	void OnEnable() => Events.OnGameStarted += ReloadFull;
-	void OnDisable() => Events.OnGameStarted -= ReloadFull;
+	public override bool IsEmpty() => AmmoCounter.IsEmpty;
 
 	public override void Fire()
 	{
@@ -32,7 +29,7 @@ public class Shotgun : Weapon
 
 	public override void UpdateInput(bool isWeaponVisible)
 	{
-		ShotgunReload.UpdateInput(AmmoCounter, isWeaponVisible);
+		ShotgunReload.UpdateInput(isWeaponVisible);
 		AmmoCounter.SetAmmoColor(ShotgunReload.IsShotCocked);
 	}
 }
