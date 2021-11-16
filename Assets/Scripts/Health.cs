@@ -4,6 +4,7 @@
 public class Health : MonoBehaviour
 {
 	public Animator DamageIndicator;
+	public SoundEffect PlayerDeath;
 	private Animator animator;
 	private int health = 4;
 
@@ -34,7 +35,10 @@ public class Health : MonoBehaviour
 		animator.SetInteger("Health", health);
 
 		if(health == 0)
+		{
 			Events.PlayerDied();
+			PlayerDeath.Play();
+		}
 	}
 
 	public void AddFullHealth()

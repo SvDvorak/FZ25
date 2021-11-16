@@ -4,10 +4,12 @@ using UnityEngine;
 public class ZombieSpawner : MonoBehaviour
 {
 	public float StepTime;
-	public float InitialSpawnTime;
-	public float EndSpawnTime;
 	public float DifficultyChangeTime;
+	//public float CosDifficultyWaveVariation;
+	//public float CosDifficultyWaveLengthInSeconds;
+	public float CurveSpawnTime;
 	public float CurrentSpawnTime;
+	public float TimeElapsed;
 	public AnimationCurve DifficultyCurve;
 	public GameObject ZombieTemplate;
 	public Transform[] DistanceLines;
@@ -15,6 +17,7 @@ public class ZombieSpawner : MonoBehaviour
 
 	public readonly List<Zombie> Zombies = new List<Zombie>();
 	private float lastSpawnTime;
+	private bool hasStartedWithOne;
 
 	void OnEnable() => Events.OnGameStarted += Reset;
 	void OnDisable() => Events.OnGameStarted -= Reset;
@@ -51,13 +54,17 @@ public class ZombieSpawner : MonoBehaviour
 		    i++;
 	    }
 
-	    CurrentSpawnTime = Mathf.Lerp(InitialSpawnTime, EndSpawnTime,
-		    DifficultyCurve.Evaluate(Mathf.Clamp01(GameState.ElapsedGameTime / DifficultyChangeTime)));
+	    TimeElapsed = GameState.ElapsedGameTime;
+	    CurveSpawnTime = DifficultyCurve.Evaluate(Mathf.Clamp01(GameState.ElapsedGameTime / DifficultyChangeTime));
+	    //CurrentSpawnTime = CurveSpawnTime + Mathf.Cos(GameState.ElapsedGameTime / (2 * Mathf.PI) * CosDifficultyWaveLengthInSeconds) * CosDifficultyWaveVariation;
+	    CurrentSpawnTime = CurveSpawnTime;
+	    //CurrentSpawnTime = Mathf.Max(0.2f, CurrentSpawnTime);
 
-	    if(GameState.ElapsedGameTime - lastSpawnTime > CurrentSpawnTime)
+	    if (GameState.ElapsedGameTime - lastSpawnTime > CurrentSpawnTime)
 	    {
 			Spawn();
 			lastSpawnTime = GameState.ElapsedGameTime;
+			Debug.Log(CurrentSpawnTime);
 	    }
     }
 
@@ -72,6 +79,6 @@ public class ZombieSpawner : MonoBehaviour
 	    foreach(var zombie in Zombies)
 		    Destroy(zombie.gameObject);
 		Zombies.Clear();
-		lastSpawnTime = GameState.ElapsedGameTime;
+		lastSpawnTime = GameState.ElapsedGameTime - DifficultyCurve.Evaluate(0) * 0.75f;
     }
 }

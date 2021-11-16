@@ -10,6 +10,8 @@ Sounds missing:
   D Attack
   D Moans
 
+  D Death sound!!!
+
 
 Credits:
 Pistol Dry Fire https://freesound.org/people/Sophia_C/sounds/467183/
@@ -17,8 +19,9 @@ Pistol Unload https://freesound.org/people/fastson/sounds/399122/
 Shotgun Dry Fire https://freesound.org/people/knova/sounds/170272/
 Zombie
   https://freesound.org/people/Slave2theLight/sounds/157027/
-  https://freesound.org/people/silentbob530/sounds/214462/aud
+  https://freesound.org/people/silentbob530/sounds/214462/
   https://freesound.org/people/revolverrossalot/sounds/474055/
+Death Cry https://freesound.org/people/theuncertainman/sounds/417539/
 Ambiance (not used)
   https://freesound.org/people/InspectorJ/sounds/352514/
 Music
