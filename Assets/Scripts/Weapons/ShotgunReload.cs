@@ -7,6 +7,10 @@ public class ShotgunReload : Reload
 	public Animator Animator;
 	public bool IsShotCocked;
 
+	public SoundEffect UncockSound;
+	public SoundEffect CockSound;
+	public SoundEffect LoadSound;
+
 	public override void UpdateInput(bool isWeaponVisible)
 	{
 		base.UpdateInput(isWeaponVisible);
@@ -16,12 +20,14 @@ public class ShotgunReload : Reload
 	    {
 			Animator.SetTrigger("Load");
 			AmmoCounter.AddSingle();
+			LoadSound.Play();
 			ResetCachedInput();
 	    }
 		else if(clipName == "Idle" && CachedInput == "Right")
 	    {
 		    Animator.SetBool("Cocked", true);
 			InteractionArrow.SetDirection("Left");
+			UncockSound.Play();
 			ResetCachedInput();
 	    }
 		else if(clipName == "Cock" && CachedInput == "Left")
@@ -29,6 +35,7 @@ public class ShotgunReload : Reload
 		    Animator.SetBool("Cocked", false);
 		    if(AmmoCounter.HasRoundsLoaded)
 			    IsShotCocked = true;
+			CockSound.Play();
 			ResetCachedInput();
 	    }
 

@@ -7,6 +7,9 @@ public class Pistol : Weapon
 	public PistolFiring PistolFiring;
 	public Transform Reticle;
 
+	public SoundEffect FireSound;
+	public SoundEffect ClickSound;
+
 	public override bool CanFire() => !IsEmpty() && PistolReload.IsCocked;
 	public override bool IsFull() => AmmoCounter.IsFull;
 	public override bool IsEmpty() => AmmoCounter.IsEmpty;
@@ -14,8 +17,11 @@ public class Pistol : Weapon
 	public override void Fire()
 	{
 		PistolFiring.Fire();
+		FireSound.Play();
 		AmmoCounter.RemoveSingle();
 	}
+
+	public override void DryFire() => ClickSound.Play();
 
 	public override void UpdateInput(bool isWeaponVisible)
 	{

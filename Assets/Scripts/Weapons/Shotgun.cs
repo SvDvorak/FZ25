@@ -7,6 +7,9 @@ public class Shotgun : Weapon
 	public Firing ShotgunFiring;
 	public Transform Reticle;
 
+	public SoundEffect FireSound;
+	public SoundEffect ClickSound;
+
 	public override bool CanFire() => ShotgunReload.IsShotCocked;
 	public override bool IsFull() => AmmoCounter.IsFull;
 	public override bool IsEmpty() => AmmoCounter.IsEmpty;
@@ -18,8 +21,11 @@ public class Shotgun : Weapon
 			AmmoCounter.RemoveSingle();
 			ShotgunFiring.Fire();
 			ShotgunReload.IsShotCocked = false;
+			FireSound.Play();
 		}
 	}
+
+	public override void DryFire() => ClickSound.Play();
 
 	public override void ReloadFull()
 	{

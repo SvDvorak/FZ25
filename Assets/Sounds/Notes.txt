@@ -1,0 +1,17 @@
+Sounds missing:
+  Pistol
+  s Fire
+  - Dry fire
+  - Unload
+  - Load
+  s Cock
+
+
+Credits:
+Pistol Dry Fire https://freesound.org/people/Sophia_C/sounds/467183/
+Pistol Unload https://freesound.org/people/fastson/sounds/399122/
+Shotgun Dry Fire https://freesound.org/people/knova/sounds/170272/
+
+https://freesound.org/people/davdud101/sounds/119168/
+https://freesound.org/people/fastson/sounds/399122/
+https://freesound.org/search/?q=dry+fire

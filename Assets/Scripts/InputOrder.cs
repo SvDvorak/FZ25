@@ -48,11 +48,6 @@ public class InputOrder : MonoBehaviour
 			var weaponFullyLoaded = GameState.ActiveWeapon.IsFull() && GameState.ActiveWeapon.CanFire();
 			if(weaponFullyLoaded && waitAndHideRoutine == null)
 				waitAndHideRoutine = StartCoroutine(WaitAndHideWeapon());
-			//else if(PressedWeaponSelect())
-			//{
-			//	SetWeaponVisible(false);
-			//	WaitForButtonRelease();
-			//}
 		}
 
 		if(GameState.ActiveWeapon.IsEmpty())
@@ -65,6 +60,8 @@ public class InputOrder : MonoBehaviour
 		}
 		else
 		{
+			if(Input.GetKeyDown(KeyCode.Space))
+				GameState.ActiveWeapon.DryFire();
 			weaponHasFocus = true;
 		}
 

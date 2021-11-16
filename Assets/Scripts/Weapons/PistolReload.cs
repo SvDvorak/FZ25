@@ -6,6 +6,10 @@ public class PistolReload : Reload
 	public AmmoCounter AmmoCounter;
 	public Animator Animator;
 
+	public SoundEffect UnloadSound;
+	public SoundEffect LoadSound;
+	public SoundEffect CockSound;
+
 	public bool IsCocked { get; private set; } = true;
 
 	public override void UpdateInput(bool isWeaponVisible)
@@ -20,6 +24,7 @@ public class PistolReload : Reload
 				Animator.SetTrigger("Unload");
 				InteractionArrow.SetDirection("Up");
 				IsCocked = false;
+				UnloadSound.Play();
 				ResetCachedInput();
 			}
 			else
@@ -32,12 +37,14 @@ public class PistolReload : Reload
 			Animator.SetTrigger("Load");
 			AmmoCounter.AddFull();
 			InteractionArrow.SetDirection("Left");
+			LoadSound.Play();
 			ResetCachedInput();
 		}
 		else if (clipName == "Load" && CachedInput == "Left")
 		{
 			Animator.SetTrigger("Cock");
 			IsCocked = true;
+			CockSound.Play();
 			ResetCachedInput();
 		}
 	}
