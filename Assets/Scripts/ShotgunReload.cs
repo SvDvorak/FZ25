@@ -7,29 +7,41 @@ public class ShotgunReload : MonoBehaviour
 	public Animator Animator;
 	public bool IsShotCocked;
 
+	private string cachedInput;
+	private float uncacheTime;
+
 	public void UpdateInput(AmmoCounter ammoCounter, bool isWeaponVisible)
 	{
+		if(GetInput() != null)
+		{
+			cachedInput = GetInput();
+			uncacheTime = Time.time + 0.5f;
+		}
+
 	    var clipName = GetCurrentClipName();
-	    if(isWeaponVisible && clipName == "Idle" && !ammoCounter.IsFull && GetInput() == "Up")
+	    if(isWeaponVisible && clipName == "Idle" && !ammoCounter.IsFull && cachedInput == "Up")
 	    {
 			Animator.SetTrigger("Load");
 			ammoCounter.AddSingle();
+			ResetCachedInput();
 	    }
-		else if(clipName == "Idle" && GetInput() == "Right")
+		else if(clipName == "Idle" && cachedInput == "Right")
 	    {
 		    Animator.SetBool("Cocked", true);
 			InteractionArrow.SetDirection("Left");
+			ResetCachedInput();
 	    }
-		else if(clipName == "Cock" && GetInput() == "Left")
+		else if(clipName == "Cock" && cachedInput == "Left")
 	    {
 		    Animator.SetBool("Cocked", false);
 		    if(ammoCounter.HasRoundsLoaded)
 			    IsShotCocked = true;
+			ResetCachedInput();
 	    }
 
 	    if(clipName == "Idle" && isWeaponVisible && !ammoCounter.IsFull)
 		    InteractionArrow.SetDirection("Up");
-	    else if(clipName == "Idle" && !IsShotCocked)
+	    else if(clipName == "Idle" && !IsShotCocked && !ammoCounter.IsEmpty())
 		    InteractionArrow.SetDirection("Right");
 	    else if(clipName == "Uncock")
 		    InteractionArrow.SetDirection("Right");
@@ -39,7 +51,19 @@ public class ShotgunReload : MonoBehaviour
 		    InteractionArrow.SetDirection("None");
     }
 
-    private string GetInput()
+	private void ResetCachedInput()
+	{
+		cachedInput = null;
+		uncacheTime = 0;
+	}
+
+	void Update()
+	{
+		if(uncacheTime < Time.time)
+			ResetCachedInput();
+	}
+
+	private string GetInput()
     {
 	    if(Input.GetKeyDown(KeyCode.UpArrow))
 		    return "Up";
@@ -49,7 +73,7 @@ public class ShotgunReload : MonoBehaviour
 		    return "Left";
 	    if(Input.GetKeyDown(KeyCode.RightArrow))
 		    return "Right";
-	    return "None";
+	    return null;
     }
 
     public string GetCurrentClipName()

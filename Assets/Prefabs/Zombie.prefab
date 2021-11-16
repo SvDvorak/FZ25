@@ -555,6 +555,7 @@ MonoBehaviour:
   - {fileID: 2185901763822802774}
   - {fileID: 674670423051646186}
   - {fileID: 3767144630443502829}
+  AttackAnimator: {fileID: 813501602351073774}
 --- !u!1 &7150822872123605805
 GameObject:
   m_ObjectHideFlags: 0

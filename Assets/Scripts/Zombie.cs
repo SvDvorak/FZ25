@@ -8,6 +8,8 @@ public class Zombie : MonoBehaviour
 	public bool IsDead { get; set; }
 	public float StepElapsed => Time.time - stepTime;
 
+	public Animator AttackAnimator;
+
 	private float stepTime;
 	private GameObject activeSprite;
 	private Vector3 offset;
@@ -55,7 +57,10 @@ public class Zombie : MonoBehaviour
 	{
 		health.TakeDamage();
 		stepTime = Time.time;
+		AttackAnimator.SetTrigger("Chomp");
 	}
+
+	void LateUpdate() => AttackAnimator.ResetTrigger("Chomp");
 
 	public void TakeDamage()
 	{

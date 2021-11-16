@@ -3,6 +3,7 @@
 [RequireComponent(typeof(Animator))]
 public class Health : MonoBehaviour
 {
+	public Animator DamageIndicator;
 	private Animator animator;
 	private int health = 4;
 
@@ -20,6 +21,12 @@ public class Health : MonoBehaviour
 	{
 		health = Mathf.Clamp(health - 1, 0, 4);
 		UpdateHealth();
+		DamageIndicator.SetTrigger("Damage");
+	}
+
+	void LateUpdate()
+	{
+		DamageIndicator.ResetTrigger("Damage");
 	}
 
 	private void UpdateHealth()
