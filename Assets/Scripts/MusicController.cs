@@ -4,7 +4,12 @@ public class MusicController : MonoBehaviour
 {
 	public AudioSource Music;
 
-    void Update()
+	public void StartMusic()
+	{
+		Music.Play();
+	}
+
+	void Update()
     {
 	    if(Input.GetKeyDown(KeyCode.M))
 	    {

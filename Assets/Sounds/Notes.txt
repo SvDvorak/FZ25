@@ -12,6 +12,9 @@ Sounds missing:
 
   D Death sound!!!
 
+  - On-click sound
+  - Inet intro?
+
 
 Credits:
 Pistol Dry Fire https://freesound.org/people/Sophia_C/sounds/467183/

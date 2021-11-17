@@ -5,6 +5,7 @@ public class GameState : MonoBehaviour
 	public static bool Playing;
 	public static float StartTime;
 	public static float ElapsedGameTime => Time.time - StartTime;
+	public bool HasPlayedIntro;
 
 	public Weapon ActiveWeapon;
 
@@ -18,6 +19,11 @@ public class GameState : MonoBehaviour
 	{
 		Pistol.gameObject.SetActive(false);
 		Shotgun.gameObject.SetActive(false);
+	}
+
+	public void StartGame()
+	{
+		HasPlayedIntro = true;
 		Restart();
 	}
 

@@ -12,8 +12,17 @@ public class InputOrder : MonoBehaviour
 	private float waitTimeEnd;
 	private bool weaponHadFocusLastFrame = true;
 
-	void OnEnable() => Events.OnPlayerDied += PauseInput;
-	void OnDisable() => Events.OnPlayerDied -= PauseInput;
+	void OnEnable()
+	{
+		Events.OnPlayerDied += PauseInput;
+		Events.OnGameStarted += GameStarted;
+	}
+
+	void OnDisable()
+	{
+		Events.OnPlayerDied -= PauseInput;
+		Events.OnGameStarted -= GameStarted;
+	}
 
 	void Update()
 	{
@@ -94,11 +103,16 @@ public class InputOrder : MonoBehaviour
 	{
 		HideGameFunctions();
 
-		if(waitTimeEnd < Time.time && Input.GetKeyDown(KeyCode.Space))
+		if(waitTimeEnd < Time.time && Input.GetKeyDown(KeyCode.Space) && GameState.HasPlayedIntro)
 		{
 			GameState.Restart();
 			Aiming.SetVisible(true);
 		}
+	}
+
+	private void GameStarted()
+	{
+		Aiming.SetVisible(true);
 	}
 
 	private IEnumerator WaitAndHideWeapon()

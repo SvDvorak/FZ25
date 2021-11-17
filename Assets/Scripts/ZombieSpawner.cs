@@ -64,7 +64,7 @@ public class ZombieSpawner : MonoBehaviour
 	    {
 			Spawn();
 			lastSpawnTime = GameState.ElapsedGameTime;
-			Debug.Log(CurrentSpawnTime);
+			//Debug.Log(CurrentSpawnTime);
 	    }
     }
 
