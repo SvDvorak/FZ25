@@ -2358,7 +2358,7 @@ MonoBehaviour:
   ActiveWeapon: {fileID: 0}
   Pistol: {fileID: 1312681056}
   Shotgun: {fileID: 1971568001}
-  WeaponSwitch: {fileID: 0}
+  WeaponSwitch: {fileID: 1529508399}
 --- !u!1 &668370883
 GameObject:
   m_ObjectHideFlags: 0

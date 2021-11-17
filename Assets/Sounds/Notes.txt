@@ -15,8 +15,8 @@ Sounds missing:
 D On-click sound
 D Inet intro?
 
-- Change Weapon sound?
-- Zombie Hit effect?
+D Change Weapon sound
+D Zombie Hit effect?
 - Gameplay gif
 - Builds (Windows & Web)
 

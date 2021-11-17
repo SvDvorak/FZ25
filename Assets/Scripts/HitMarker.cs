@@ -3,6 +3,7 @@
 public class HitMarker : MonoBehaviour
 {
 	public SpriteRenderer Sprite;
+	public Animator Particles;
 	public float LifeTime;
 	private float startTime;
 
@@ -10,6 +11,7 @@ public class HitMarker : MonoBehaviour
 	{
 		startTime = Time.time;
 		Sprite.SetAlpha(1);
+		Particles.SetTrigger("Hit");
 	}
 
     public bool UpdateLifetime()

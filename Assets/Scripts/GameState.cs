@@ -40,6 +40,7 @@ public class GameState : MonoBehaviour
 		Playing = true;
 		Pistol.Reset();
 		Shotgun.Reset();
+		ScoreKeeper.Score = 0;
 		SetActiveWeapon(Pistol);
 		Events.GameStarted();
 	}
