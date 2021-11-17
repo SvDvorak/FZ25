@@ -12,14 +12,20 @@ Sounds missing:
 
   D Death sound!!!
 
-  - On-click sound
-  - Inet intro?
+D On-click sound
+D Inet intro?
+
+- Change Weapon sound?
+- Zombie Hit effect?
+- Gameplay gif
+- Builds (Windows & Web)
 
 
 Credits:
 Pistol Dry Fire https://freesound.org/people/Sophia_C/sounds/467183/
 Pistol Unload https://freesound.org/people/fastson/sounds/399122/
 Shotgun Dry Fire https://freesound.org/people/knova/sounds/170272/
+Switch Weapon: https://freesound.org/people/knova/sounds/170273/
 Zombie
   https://freesound.org/people/Slave2theLight/sounds/157027/
   https://freesound.org/people/silentbob530/sounds/214462/

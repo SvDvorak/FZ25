@@ -12,6 +12,8 @@ public class GameState : MonoBehaviour
 	public Weapon Pistol;
 	public Weapon Shotgun;
 
+	public SoundEffect WeaponSwitch;
+
 	void OnEnable() => Events.OnPlayerDied += StopPlaying;
 	void OnDisable() => Events.OnPlayerDied -= StopPlaying;
 
@@ -44,6 +46,7 @@ public class GameState : MonoBehaviour
 
 	public void SwitchWeapon()
 	{
+		WeaponSwitch.Play();
 		SetActiveWeapon(ActiveWeapon == Pistol ? Shotgun : Pistol);
 	}
 

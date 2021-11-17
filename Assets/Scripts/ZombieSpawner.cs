@@ -24,7 +24,7 @@ public class ZombieSpawner : MonoBehaviour
 
     void Update()
     {
-	    if(Input.GetKeyDown(KeyCode.LeftAlt))
+	    if(Input.GetKeyDown(KeyCode.LeftAlt) && Application.isEditor)
 		    Spawn();
 
 	    if(!GameState.Playing)
